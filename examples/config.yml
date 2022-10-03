@@ -1,15 +1,25 @@
 spectaql:
-  logoFile: ./test/fixtures/logo.png
-  faviconFile: ./test/fixtures/favicon.png
-  displayAllServers: true
+  #logoFile: ./test/fixtures/logo.png
+  #faviconFile: ./test/fixtures/favicon.png
+  #displayAllServers: true
 
 introspection:
   removeTrailingPeriodFromDescriptions: false
   schemaFile: ./data/schema.gql
+  #url: http://localhost:5000/graphql
+
   metadataFile: ./data/metadata.json
-  dynamicExamplesProcessingModule: ./customizations/examples
+  #dynamicExamplesProcessingModule: ./customizations/examples
   queryNameStrategy: capitalizeFirst
   fieldExpansionDepth: 2
+
+  mutationsDocumentedDefault: false
+  subscriptionsDocumentedDefault: true
+  objectsDocumentedDefault: true 
+  inputsDocumentedDefault: true 
+  enumsDocumentedDefault: true 
+  unionsDocumentedDefault: true
+
 
   spectaqlDirective:
     enable: true
@@ -31,11 +41,12 @@ info:
   x-introItems:
     - title: Important thing 1
       description: Some important stuff we wanted you to know. Supports `markdown`
+  x-url: https://cims.horrocks.com/reports/graphql    
 
 servers:
   - url: https://staging.example.com/graphql
     description: Staging
-  - url: https://example.com/graphql
+  - url: http://localhost:5000/graphql
     description: Production
     production: true
     headers:

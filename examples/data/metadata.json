@@ -1,7 +1,7 @@
 {
   "OBJECT": {
     "SecretType": {
-      "documentation": { "undocumented": true }
+      "documentation": { "undocumented": false }
     },
     "MyType": {
       "fields": {
@@ -58,7 +58,7 @@
           "documentation": { "example": "exampleFromMetadataJson" }
         },
         "name": {
-          "documentation": { "undocumented": true }
+          "documentation": { "undocumented": false }
         }
       }
     }
