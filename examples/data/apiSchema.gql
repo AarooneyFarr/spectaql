@@ -285,6 +285,7 @@ type AuditLog {
   oldValue: String!
   """Maps to `RPT_Certs.id` when `table = 'RPT_Certs'`. Maps to `RPT_Routing_Groups_Certs_Join.id` when `table = 'RPT_Routing_Groups_Certs_Join'`"""
   recordId: Float!
+  """this is a test description //TODO"""
   table: String!
   user: User!
   userId: String!
@@ -2352,6 +2353,7 @@ type Query {
   getApiKeys: [APIKey!]!
   getCert(certId: Int!): Cert!
   getConcreteTestSetPacketFromSharePoint(globalId: String!): ConcreteTestSetPacket
+  """This is a test description //TODO"""
   getProjectAsphaltLots(projectGuid: String!): [AsphaltLot!]!
   getProjectInspections(projectGuid: String!): [DailyInspectionInspection!]!
   getProjectLots(projectGuid: String!): [Lot!]!
