@@ -1,6 +1,6 @@
 spectaql:
-  #logoFile: ./test/fixtures/logo.png
-  #faviconFile: ./test/fixtures/favicon.png
+  logoFile: ./test/fixtures/cimslogo.png
+  faviconFile: ./test/fixtures/cimsfavicon.png
   displayAllServers: true
 
 introspection:
@@ -30,29 +30,62 @@ extensions:
 
 info:
   title: CIMS - GraphQL API Reference
-  description: Welcome to the party!
+  description: "There are 3 environments that follow this reference. Each has its own associated database and purpose.\n\n
+
+
+1. **Production** - The production application used by bulk of users.\n
+1. **Staging** - A mirror of the production application, but with its own database\n
+1. **Development** - A canary version of the application updated with new features the evening they are finished. Not guaranteed to be stable\n
+"
   # termsOfService: https://www.example.com/terms
   contact:
     name: API Support
     url: http://www.example.com/support
     email: support@example.com
-  license:
-    name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  # license:
+    # name: Apache 2.0
+    # url: https://www.apache.org/licenses/LICENSE-2.0.html
   x-introItems:
-    - title: Important thing 1
-      description: Some important stuff we wanted you to know. Supports `markdown`
+#     - title: Environments
+#       description: "There are 3 environments that follow this reference. Each has its own associated database and purpose.\n\n
+
+
+# 1. **Production** - The production application used by bulk of users.\n
+# 1. **Staging** - A mirror of the production application, but with its own database\n
+# 1. **Development** - A canary version of the application updated with new features the evening they are finished. Not guaranteed to be stable\n
+#"
+    - title: Authentication
+      description: "
+      #### Outside CIMS Application  
+
+      Use an API Key to access endpoints outside of the application\n
+
+      API Keys can be added to requests through one of the following methods\n
+      - **`apiKey`** query parameter\n
+      - **`Bearer {apiKey}`** authorization Header\n
+      - **`x-api-key`** header\n\n
+
+      Contact the current CIMS Lead to generate an API Key if one is needed\n
+
+      #### Inside CIMS Application
+
+      Inside the application, users may need permissions to be able to perform actions associated with these endpoints
+      "
   x-url: https://cims.horrocks.com/reports/graphql  
   x-hideIsDeprecated: true  
   x-hideDeprecationReason: true  
+  x-hidePoweredBy: true
 
 servers:
-  - url: https://staging.example.com/graphql
-    description: Staging
-  - url: http://localhost:5000/graphql
+  - url: https://cims.horrocks.com/reports/graphql
     description: Production
+  - url: https://cims.horrocks.com/reports-stage/graphql
+    description: Staging
+  - url: https://cims.horrocks.com/reports-dev/graphql
+    description: Development
+
     production: true
     headers:
       - name: Authorization
         example: Bearer <YOUR_TOKEN_HERE>
-        comment: Your foo from bar
+        comment: Auth using Bearer header  
