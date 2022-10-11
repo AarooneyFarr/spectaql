@@ -1,17 +1,18 @@
 spectaql:
   #logoFile: ./test/fixtures/logo.png
   #faviconFile: ./test/fixtures/favicon.png
-  #displayAllServers: true
+  displayAllServers: true
 
 introspection:
   removeTrailingPeriodFromDescriptions: false
-  schemaFile: ./data/schema.gql
+  
+  schemaFile: ./data/apiSchema.gql
   #url: http://localhost:5000/graphql
 
   metadataFile: ./data/metadata.json
   #dynamicExamplesProcessingModule: ./customizations/examples
   queryNameStrategy: capitalizeFirst
-  fieldExpansionDepth: 2
+  fieldExpansionDepth: 1
 
   mutationsDocumentedDefault: false
   subscriptionsDocumentedDefault: true
@@ -28,9 +29,9 @@ extensions:
   graphqlScalarExamples: true
 
 info:
-  title: GraphQL API Reference
+  title: CIMS - GraphQL API Reference
   description: Welcome to the party!
-  termsOfService: https://www.example.com/terms
+  # termsOfService: https://www.example.com/terms
   contact:
     name: API Support
     url: http://www.example.com/support
@@ -41,7 +42,9 @@ info:
   x-introItems:
     - title: Important thing 1
       description: Some important stuff we wanted you to know. Supports `markdown`
-  x-url: https://cims.horrocks.com/reports/graphql    
+  x-url: https://cims.horrocks.com/reports/graphql  
+  x-hideIsDeprecated: true  
+  x-hideDeprecationReason: true  
 
 servers:
   - url: https://staging.example.com/graphql

@@ -1,0 +1,2715 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type APIKey {
+  id: Float!
+  recipient: String!
+}
+
+type Action {
+  createdDate: DateTime!
+  id: Float!
+  moduleToActions: [ModuleToAction!]
+  name: String!
+  project: Project!
+  projectId: String!
+  updatedDate: DateTime!
+  usedInModules: Boolean!
+}
+
+type AsphaltCoreMeasurement {
+  alignment: String
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  asphaltLot: AsphaltLot
+  asphaltLotGuid: String
+  """Should map to the Parent_GUID when Core_Type = `Mat`"""
+  asphaltPlacement: AsphaltPlacement
+  """Should map to the Parent_GUID when Core_Type = `Joint`"""
+  asphaltPlacementJoint: AsphaltPlacementJoint
+  avgMeasuredThickness: Float
+  closedDate: DateTime
+  coreIdentifier: Float
+  coreType: String
+  createdDate: DateTime
+  createdUser: String
+  creationType: String
+  deleted: String
+  difference: Float
+  globalId: String!
+  """Seems to be unused. Use `Parent_GUID`"""
+  jointGuid: String
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  measurementDate: DateTime
+  measurementId: String
+  multiplePayItemString: String
+  multiplePayItems: [PayItemGroup!]
+  notes: String
+  offset: String
+  overrideComments: String
+  """
+  This parent guid corresponds to different entities depending on the Core_Type value
+    - for Mat => AsphaltPlacement
+    - for Joint => AsphaltPlacementJoint
+    - for Manual => We're not sure for Manual types, seems to be for AsphaltPlacement, but the name suggests it could be for either.
+  """
+  parentGuid: String
+  payItem: PayItemNoGeometry
+  payItemGroup: PayItemGroup
+  payItemGroupGuid: String
+  payItemsGuid: String
+  project: Project
+  projectId: String
+  reOpenedDate: DateTime
+  requiredThickness: Float
+  station: String
+  status: String
+  technician: Technician
+  technicianGuid: String
+}
+
+type AsphaltLot {
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  asphaltCoreMeasurements: [AsphaltCoreMeasurement!]
+  asphaltLotId: String
+  asphaltMaterial: AsphaltMaterial
+  asphaltMaterialsGuid: String
+  asphaltMixDesign: AsphaltMixDesign
+  asphaltMixDesignGuid: String
+  asphaltPlacementJoints: [AsphaltPlacementJoint!]
+  asphaltPlacements: [AsphaltPlacement!]
+  asphaltSamples: [AsphaltSample!]
+  closedDate: DateTime
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  estimatedTons: Float
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  lotCreatedDate: DateTime
+  mediaUploads: [MediaUpload!]
+  notes: String
+  overrideComments: String
+  payItemGroup: PayItemGroup
+  payItemGroupGuid: String
+  project: Project
+  projectId: String
+  reOpenedDate: DateTime
+  status: String
+  testedDate: DateTime
+}
+
+type AsphaltMaterial {
+  asphaltLots: [AsphaltLot!]
+  asphaltSamplesPerLot: Float
+  coreUnits: String
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  excludeCores: String
+  excludeCylinders: String
+  fieldCoresCore1: Float
+  fieldCoresCore3: Float
+  fieldCoresCores2: Float
+  fieldCoresCores4: Float
+  fieldCoresCores5: Float
+  fieldCoresCores6: Float
+  fieldCoresTopOfBandTons1: Float
+  fieldCoresTopOfBandTons2: Float
+  fieldCoresTopOfBandTons3: Float
+  fieldCoresTopOfBandTons4: Float
+  fieldCoresTopOfBandTons5: Float
+  fieldCoresTopOfBandTons6: Float
+  globalId: String!
+  grade: String
+  jointCorePer: Float
+  jointCoreUnit: Float
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  materialSection: String
+  placementType: String
+  project: Project
+  projectId: String
+}
+
+type AsphaltMaterialSource {
+  asphaltMixDesigns: [AsphaltMixDesign!]
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  project: Project
+  projectId: String
+  source: String
+}
+
+type AsphaltMixDesign {
+  active: String
+  asphaltLots: [AsphaltLot!]
+  asphaltMaterialSource: AsphaltMaterialSource
+  asphaltMaterialSourceGuid: String
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  expirationDate: DateTime
+  globalId: String!
+  grade: String
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  maxAggregateSize: Float
+  mixDesignNumber: String
+  project: Project
+  projectId: String
+}
+
+type AsphaltPlacement {
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  asphaltCoreMeasurements: [AsphaltCoreMeasurement!]
+  asphaltLot: AsphaltLot
+  asphaltLotGuid: String
+  asphaltPlacementJoints: [AsphaltPlacementJoint!]
+  averageThickness: Float
+  beginAlignment: String
+  beginOffset: String
+  beginStation: String
+  closedDate: DateTime
+  contractor: Contractor
+  contractorGuid: String
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  endAlignment: String
+  endOffset: String
+  endStation: String
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  linearFt: Float
+  mediaUploads: [MediaUpload!]
+  multiplePayItemString: String
+  multiplePayItems: [PayItemNoGeometry!]
+  notes: String
+  numberOfRequiredTests: Float
+  overrideComments: String
+  payItem: PayItemNoGeometry
+  payItemGroup: PayItemGroup
+  payItemGroupGuid: String
+  payItemsGuid: String
+  placementId: String
+  placementQuantityTons: Float
+  placementType: String
+  project: Project
+  projectId: String
+  reOpenedDate: DateTime
+  requiredThickness: Float
+  sqFt: Float
+  sqYd: Float
+  status: String
+  technician: Technician
+  technicianGuid: String
+  testedDate: DateTime
+}
+
+type AsphaltPlacementJoint {
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  asphaltCoreMeasurements: [AsphaltCoreMeasurement!]
+  asphaltLot: AsphaltLot
+  asphaltLotGuid: String
+  asphaltPlacement: AsphaltPlacement
+  asphaltPlacementGuid: String
+  closedDate: DateTime
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  globalId: String!
+  jointId: String
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  linearFt: Float
+  notes: String
+  overrideComments: String
+  project: Project
+  projectId: String
+  reOpenedDate: DateTime
+  status: String
+  testedDate: DateTime
+}
+
+type AsphaltSample {
+  airTemp: Float
+  asphaltLot: AsphaltLot
+  asphaltLotGuid: String
+  asphaltSampleId: String
+  asphaltTemp: Float
+  closedDate: DateTime
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  notes: String
+  offset: String
+  overrideComments: String
+  project: Project
+  projectId: String
+  reOpenedDate: DateTime
+  sampleAtQuantity: Float
+  station: String
+  status: String
+  technician: Technician
+  technicianGuid: String
+  timeSampled: DateTime
+  truckNumber: Float
+}
+
+"""The Audit Log is only updated through the `RPT_Certs` and `RPT_Routing_Groups_Certs_Join` tables at this time"""
+type AuditLog {
+  changedDate: DateTime!
+  column: String!
+  id: Float!
+  newValue: String!
+  oldValue: String!
+  """Maps to `RPT_Certs.id` when `table = 'RPT_Certs'`. Maps to `RPT_Routing_Groups_Certs_Join.id` when `table = 'RPT_Routing_Groups_Certs_Join'`"""
+  recordId: Float!
+  table: String!
+  user: User!
+  userId: String!
+}
+
+input BreakDataInput {
+  age: Float
+  breakDate: DateTime
+  diameter: String
+  id: Float
+  labNumber: String
+  labTechId: Float
+  peakLoad: Float
+  strength: Float
+  tempId: String
+  testingLabId: Float
+  type: String
+}
+
+type Cert {
+  buyAmerica: Boolean
+  buyAmericaQuantity: Float
+  buyAmericaVerified: Boolean
+  comments: [CertComment!]
+  contractualReviewDate: DateTime
+  createdDate: DateTime!
+  disposition: String
+  dispositionBy: String
+  dispositionByUser: User
+  dispositionDate: DateTime
+  expirationDate: DateTime
+  externalLinks: ExternalLinksScalar
+  files: [CertFile!]
+  id: Float!
+  movedToProjectWise: Boolean!
+  packageName: String!
+  packageNumber: String!
+  payItemJoins: [PayItemsCertsJoin!]
+  project: Project!
+  projectId: String!
+  quantity: Float!
+  requestedReviewDate: DateTime!
+  routingGroups: [CertToRoutingGroup!]
+  sharePointFolderUrl: String
+  status: String!
+  submittedBy: String!
+  submittedByUser: User!
+  subtype: CertSubtype
+  subtypeId: Float
+  type: CertType!
+  typeId: Float!
+  units: String!
+  updatedDate: DateTime!
+  workTypes: [WorkType!]!
+}
+
+type CertComment {
+  cert: Cert!
+  certId: Float!
+  comment: String!
+  createdDate: DateTime!
+  id: Float!
+  updatedDate: DateTime!
+  user: User!
+  userId: String!
+}
+
+type CertFile {
+  cert: Cert!
+  certId: Float!
+  createdDate: DateTime!
+  id: Float!
+  name: String!
+  updatedDate: DateTime!
+  url: String!
+}
+
+type CertRoutingGroup {
+  id: Float!
+  isUsed: Boolean
+  name: String!
+  project: Project!
+  projectId: String!
+  users: [User!]
+}
+
+type CertSubtype {
+  id: Float!
+  isUsed: Boolean!
+  name: String!
+  project: Project!
+  projectGuid: String!
+}
+
+type CertToRoutingGroup {
+  accepted: Boolean
+  cert: Cert!
+  certToRoutingGroupId: Float!
+  date: DateTime
+  routingGroup: CertRoutingGroup
+  user: User
+  userId: String
+}
+
+type CertType {
+  id: Float!
+  isUsed: Boolean!
+  name: String!
+  project: Project!
+  projectGuid: String!
+}
+
+type Comment {
+  createdDate: DateTime!
+  designSubmittal: DesignSubmittal
+  id: Float!
+  module: String!
+  moduleId: String!
+  text: String!
+  updatedDate: DateTime!
+  user: User!
+  userId: String!
+}
+
+type ConcreteBreakDataTestLabel {
+  label: String!
+  type: String!
+  value: String!
+}
+
+type ConcreteCoreBreakData {
+  age: Float
+  breakDate: DateTime
+  concreteCoreMeasurement: ConcreteCoreMeasurement!
+  diameter: String
+  """A concrete core measurement global id"""
+  featureGuid: String!
+  id: Float!
+  labNumber: String
+  labTech: LabTech
+  labTechId: Float
+  peakLoad: Float
+  strength: Float
+  testingLab: TestingLab
+  testingLabId: Float
+  type: String
+}
+
+type ConcreteCoreMeasurement {
+  alignment: String
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  avgMeasuredThickness: Float
+  breakStrength: Float
+  breakType: String
+  closed: DateTime
+  closedBy: Technician
+  closedByGuid: String
+  compositeIdentifier: String
+  concreteCoreBreakDatas: [ConcreteCoreBreakData!]
+  concretePlacement: ConcretePlacement
+  concretePlacementGuid: String
+  concreteTestSet: ConcreteTestSet
+  concreteTestSetGuid: String
+  coreIdentifier: Float
+  """No clue what this maps to"""
+  coreTestGuid: String
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  difference: Float
+  genericPlacements: [GenericPlacement!]
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  measuredThickness1: Float
+  measuredThickness2: Float
+  measuredThickness3: Float
+  measurementDate: DateTime
+  measurementId: String
+  multiplePayItemString: String
+  multiplePayItems: [PayItemNoGeometry!]
+  notes: String
+  offset: String
+  overrideComments: String
+  payItem: PayItemNoGeometry
+  payItemGroup: PayItemGroup
+  payItemGroupGuid: String
+  payItemsGuid: String
+  project: Project
+  projectId: String
+  reOpen: DateTime
+  renderInfo: String
+  requiredThickness: Float
+  station: String
+  status: String
+  technician: Technician
+  technicianGuid: String
+}
+
+type ConcreteMaterial {
+  airSlumpStartup: Float
+  airSlumpTestingFrequency: Float
+  airTestsPer: Float
+  airUnits: String
+  """This will most likely be null. Concrete materials are indirectly related to concrete placements through the concrete placement's concrete test set"""
+  concretePlacement: ConcretePlacement
+  """This will most likely be null. Concrete materials are indirectly related to concrete placements through the concrete placement's concrete test set"""
+  concretePlacementGuid: String
+  concreteTestSets: [ConcreteTestSet!]
+  coreTestingFrequency: Float
+  coreUnits: String
+  coresMin: Float
+  createdDate: DateTime
+  createdUser: String
+  cylinderSetFrequency: Float
+  cylinderSetMin: Float
+  cylinderSetsPer: Float
+  cylinderTestUnits: String
+  deleted: String
+  documentChecklistItemToConcreteMaterials: [DocumentChecklistItemToConcreteMaterial!]
+  excludeCores: String
+  excludeCylinders: String
+  globalId: String!
+  hasAirTemp: String
+  hasConcreteTemp: String
+  hasCureCheck: String
+  hasManualCylinders: String
+  hasPercentAir: String
+  hasSlump: String
+  hasSteelCheck: String
+  hasUnitWeight: String
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  lowFailureBreakStrength: Float
+  maximumBreakStrength: Float
+  mixDesignNumber: String
+  placementType: String
+  project: Project
+  projectId: String
+  slumpUnits: String
+  specBreakStrength: Float
+  thicknessCoresPerPlacement: String
+  unitWeight: Float
+  weightUnits: String
+}
+
+type ConcreteMixDesign {
+  active: String
+  admixtures: String
+  aggregate1: String
+  aggregate2: String
+  aggregate3: String
+  aggregate4: String
+  aggregateSources: String
+  airHigh: Float
+  airLow: Float
+  class: String
+  clientDesignNumber: String
+  concreteTestSets: [ConcreteTestSet!]
+  concreteUse: String
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  expirationDate: DateTime
+  f28DayStrengthPSI: Float
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  materialSource: String
+  maxAggSize: String
+  mixDesignNumber: String
+  project: Project
+  projectId: String
+  slumpHighInches: Float
+  slumpLowInches: Float
+  submittalId: String
+  wc: String
+}
+
+type ConcretePacketFile {
+  concreteTestSet: ConcreteTestSet!
+  concreteTestSetGuid: String!
+  createdDate: DateTime!
+  description: String!
+  id: Float!
+  name: String!
+  sharePointItemId: String!
+  updatedDate: DateTime!
+  url: String!
+}
+
+type ConcretePlacement {
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  associatedPayItems: String
+  averageThickness: Float
+  beginAlignment: String
+  beginOffset: String
+  beginStation: String
+  concreteCoreMeasurements: [ConcreteCoreMeasurement!]
+  concreteMaterials: [ConcreteMaterial!]
+  concreteTestSet: ConcreteTestSet
+  concreteTestSetGuid: String
+  concreteTestSetPlacements: [ConcreteTestSetPlacement!]
+  contractor: Contractor
+  contractorGuid: String!
+  createdDate: DateTime
+  createdUser: String
+  cureCheck: String
+  cureGallons: Float
+  cureSqft: Float
+  deleted: String
+  endAlignment: String
+  endOffset: String
+  endStation: String
+  generatedInfo: String
+  genericPlacements: [GenericPlacement!]
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  linearFt: Float
+  multiplePayItemString: String
+  multiplePayItems: [PayItemNoGeometry!]
+  notes: String
+  numberOfRequiredTests: Float
+  overrideComments: String
+  payItem: PayItemNoGeometry
+  payItemGroup: PayItemGroup
+  payItemGroupGuid: String
+  payItemsGuid: String
+  placementId: String
+  placementQtyVolCy: Float
+  placementType: String
+  project: Project!
+  projectId: String!
+  renderInfo: String
+  requiredThickness: Float
+  sqFt: Float
+  sqYd: Float
+  status: String
+  steelCheck: String
+  steelNotes: String
+  steelVerify: String
+  technician: Technician!
+  technicianGuid: String!
+  testedDate: DateTime
+}
+
+type ConcreteTest {
+  airMeterCalibrationDate: DateTime
+  airMeterNumber: String
+  airTemp: Float
+  alignment: String
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  closed: DateTime
+  concreteTemp: Float
+  concreteTempTestedBy: Technician
+  concreteTempTestedByGuid: String
+  concreteTestBreakDatas: [ConcreteTestBreakData!]
+  concreteTestSet: ConcreteTestSet
+  concreteTestSetGuid: String
+  concreteTestSetPlacements: [ConcreteTestSetPlacement!]
+  contractor: Contractor
+  contractorGuid: String
+  createdDate: DateTime
+  createdUser: String
+  cylinderNumber: String
+  cylindersCaseByTech: Technician
+  cylindersCaseByTechGuid: String
+  deleted: String
+  """Chooses the correct test identifier by preferring cylinderNum over testSubId. This is not a database field"""
+  fieldNumber: String
+  generatedInfo: String
+  globalId: String!
+  iaSample: String
+  iaWith: String
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  multiplePayItemString: String
+  multiplePayItems: [PayItemNoGeometry!]
+  notes: String
+  overrideComments: String
+  payItem: PayItemNoGeometry
+  payItemsGuid: String
+  percentAir: Float
+  percentAirTestedBy: Technician
+  percentAirTestedByGuid: String
+  placementDate: DateTime
+  project: Project
+  projectId: String
+  reOpen: DateTime
+  renderInfo: String
+  sampleAtQuantity: Float
+  sampleAtQuantityModified: String
+  slump: Float
+  slumpTestedBy: Technician
+  slumpTestedByGuid: String
+  station1: String
+  station2: String
+  station3: String
+  station4: String
+  status: String
+  strengthAge: String
+  testSubId: String
+  testType: Float
+  timeTested: DateTime!
+  truckNumber: Float
+  unitWeight: Float
+  unitWeightTech: Technician
+  unitWeightTechGuid: String
+}
+
+type ConcreteTestBreakData {
+  age: Float
+  breakDate: DateTime
+  concreteTest: ConcreteTest!
+  diameter: String
+  """A concrete test global id"""
+  featureGuid: String!
+  id: Float!
+  labNumber: String
+  labTech: LabTech
+  labTechId: Float
+  peakLoad: Float
+  strength: Float
+  testingLab: TestingLab
+  testingLabId: Float
+  type: String
+}
+
+type ConcreteTestSet {
+  airMeterCalibrationDate: DateTime
+  airMeterNumber: String
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  closed: DateTime
+  concreteMaterial: ConcreteMaterial
+  concreteMaterialsGuid: String
+  concreteMixDesign: ConcreteMixDesign
+  concreteMixDesignGuid: String
+  concretePacketFiles: [ConcretePacketFile!]
+  concretePlacements: [ConcretePlacement!]
+  concreteTestSetMetadata: ConcreteTestSetMetadata
+  concreteTests: [ConcreteTest!]
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  documentChecklistValues: [DocumentChecklistValue!]
+  estimatedQuantity: Float
+  estimatedThicknessIn: Float
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  mediaUploads: [MediaUpload!]
+  overrideComments: String
+  payItemGroup: PayItemGroup
+  payItemGroupGuid: String
+  placementDate: DateTime
+  project: Project
+  projectId: String
+  reOpen: DateTime
+  status: String
+  technician: Technician
+  technicianGuid: String
+  testSetId: String
+}
+
+type ConcreteTestSetMetadata {
+  concreteTestSet: ConcreteTestSet!
+  concreteTestSetGuid: String!
+  createdDate: DateTime!
+  id: String!
+  packetDesc: String
+  packetName: String
+  packetSharePointItemId: String
+  packetUrl: String
+  updatedDate: DateTime!
+}
+
+type ConcreteTestSetPacket {
+  downloadUrl: String!
+  itemId: String
+  name: String!
+}
+
+type ConcreteTestSetPlacement {
+  concretePlacement: ConcretePlacement
+  concretePlacementGuid: String
+  concreteTest: ConcreteTest
+  concreteTestGuid: String
+  concreteTestSet: ConcreteTestSet
+  concreteTestSetGuid: String
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  notes: String
+  project: Project
+  projectId: String
+  status: String
+  testSetPlacementId: String
+}
+
+type Contractor {
+  asphaltPlacements: [AsphaltPlacement!]
+  concretePlacements: [ConcretePlacement!]
+  concreteTests: [ConcreteTest!]
+  """this field is a uniqueidentifier, which means it could have a ManyToOne relationship with something else in the database. However, every row in the database is null so I have no idea what the relationship could be"""
+  contractorId: String
+  contractorName: String
+  createdDate: DateTime
+  createdUser: String
+  dailyInspectionDailyContractorEquipments: [DailyInspectionDailyContractorEquipment!]
+  dailyInspectionDailyContractorPersonnel: [DailyInspectionDailyContractorPersonnel!]
+  dailyInspectionInspections: [DailyInspectionInspection!]
+  deleted: String
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  lots: [Lot!]
+  project: Project
+  projectId: String
+}
+
+input CreateDocumentChecklistItemInput {
+  concreteMaterialGuids: [String!]
+  name: String!
+  projectId: String!
+}
+
+input CreateNonUserEmailInput {
+  address: String!
+  label: String
+  projectId: String!
+}
+
+input CreateProjectRoleInput {
+  name: String!
+  permissionIds: [String!]!
+}
+
+type CustomPayItemConnection {
+  configuration: CustomPayItemConnectionJSON!
+  currentlySyncing: Boolean!
+  customPayItemData: CustomPayItemData
+  id: Float!
+  lastSyncedDate: DateTime
+  project: Project
+  projectId: String!
+  """The associated `CustomPayItemConnectionType`. Potential values: google-sheet"""
+  type: String!
+}
+
+type CustomPayItemConnectionColumnsResponse {
+  columns: [String!]!
+  columnsToHide: [String!]!
+}
+
+type CustomPayItemConnectionJSON {
+  """The configuration JSON for Google Sheets"""
+  sheet: CustomPayItemConnectionSheetJSON
+}
+
+type CustomPayItemConnectionSheetJSON {
+  columnOrder: [String!]
+  columnsToHide: [String!]
+  error: String
+  id: String!
+  name: String
+  order: Float
+  sheetName: String
+  tab: String!
+  tabName: String
+  url: String!
+}
+
+"""Extends the `CustomPayItemConnection` in order to speed up transactions associated with pulling `GoogleSheetData`"""
+type CustomPayItemData {
+  connectionId: Float!
+  customPayItemConnection: CustomPayItemConnection!
+  googleSheetData: GoogleSheetData!
+}
+
+type DailyInspectionControlPoint {
+  approve: DateTime
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  comments: String
+  controlPointId: String
+  controlPointType: DailyInspectionControlPointType
+  controlPointTypeGuid: String
+  cpmActivityId: String
+  createdDate: DateTime
+  createdUser: String
+  dailyInspectionFormAnswers: [DailyInspectionFormAnswer!]
+  dateCreated: DateTime
+  deleted: String
+  endAlignment: String
+  endOffset: String
+  endStation: String
+  formData: String
+  genericPlacements: [GenericPlacement!]
+  globalId: String!
+  json: DailyInspectionControlPointJSON
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  lowTemp: Float
+  mediaUploads: [MediaUpload!]
+  multiplePayItemString: String
+  multiplePayItems: [PayItemNoGeometry!]
+  ohcRep: DailyInspectionLookUp
+  ohcRepGuid: String
+  ohcRepSignatureDate: DateTime
+  ohcRepSignatureUri: String
+  payItem: PayItemNoGeometry
+  payItemGroup: PayItemGroup
+  payItemGroupGuid: String
+  payItemGuid: String
+  precipitationAmount: String
+  precipitationType: String
+  project: Project
+  """unused. all records are null for this field in the database. use projectId"""
+  projectGuid: String
+  projectId: String
+  qaRep: DailyInspectionLookUp
+  qaRepGuid: String
+  qaRepSignatureDate: DateTime
+  qaRepSignatureUri: String
+  qaSigner: DailyInspectionLookUp
+  qaSignerGuid: String
+  reject: DateTime
+  renderInfo: String
+  reopen: DateTime
+  reportDate: DateTime
+  responseComment: String
+  reviewComment: String
+  reviewDate: DateTime
+  reviewStatus: String
+  reviewedBy: Technician
+  reviewedByGuid: String
+  skies: String
+  startAlignment: String
+  startOffset: String
+  startStation: String
+  submit: DateTime
+  technician: Technician
+  technicianGuid: String
+  tempHigh: Float
+  weatherImpactNotes: String
+  weatherImpacted: String
+  windSpeed: String
+  workType: DailyInspectionWorkType
+  workTypeGuid: String
+  """unused. all records are null for this field in the database"""
+  workTypeId: String
+}
+
+type DailyInspectionControlPointJSON {
+  CPMActivityId: String
+  Comments: String
+  ControlPointId: String
+  DateCreated: String
+  EndAlignment: String
+  EndOffset: String
+  EndStation: String
+  FormData: DailyInspectionControlPointJSONFormData
+  OHCRepGuid: String
+  OHCRepSignatureUri: String
+  PayItemGuid: String
+  ProjectGuid: String
+  QARepGuid: String
+  QARepSignatureUri: String
+  ReportDate: String
+  ReviewComment: String
+  ReviewDate: String
+  ReviewStatus: String
+  ReviewedByGuid: String
+  StartAlignment: String
+  StartOffset: String
+  StartStation: String
+  TechnicianGuid: String
+  WorkTypeGuid: String
+}
+
+type DailyInspectionControlPointJSONFormData {
+  FieldsJson: String
+  FormName: String
+  ProjectId: String
+  WorkTypeId: String
+}
+
+type DailyInspectionControlPointType {
+  createdDate: DateTime
+  createdUser: String
+  dailyInspectionControlPoints: [DailyInspectionControlPoint!]
+  deleted: String
+  globalId: String!
+  """There's no apparent schema for this JSON"""
+  json: String
+  lastEditedDate: DateTime
+  lastEditedUser: String
+}
+
+type DailyInspectionDailyContractorEquipment {
+  comments: String
+  contractor: Contractor
+  contractorGuid: String
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  duration: Float
+  globalId: String!
+  inspection: DailyInspectionInspection
+  """This maps to DAILYINSPECTION_DAILYCONTRACTOREQUIPMENT_EVW.Inspection_ID. It's named this way because this API's conventions would produce two identical field names for this and DAILYINSPECTION_DAILYCONTRACTOREQUIPMENT_EVW.InspectionId"""
+  inspectionGuid: String
+  inspectionId: String
+  json: DailyInspectionDailyContractorEquipmentJSON
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  make: String
+  model: String
+  notes: String
+  numberOfUnits: Float
+  operatingQty: Float
+  standbyQty: Float
+  type: String
+  year: Float
+}
+
+type DailyInspectionDailyContractorEquipmentJSON {
+  Comments: String
+  ContractorGuid: String
+  Duration: Float
+  InspectionId: String
+  Make: String
+  Model: String
+  Notes: String
+  NumberOfUnits: Float
+  OperatingQty: Float
+  StandbyQty: Float
+  Type: String
+  Year: Float
+}
+
+type DailyInspectionDailyContractorPersonnel {
+  contractor: Contractor
+  contractorGuid: String
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  globalId: String!
+  inspection: DailyInspectionInspection
+  inspectionId: String
+  """There are no records in the database to let me declare the shape of this JSON"""
+  json: String
+  laborCount: Float
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  skilledCount: Float
+  supervisorCount: Float
+}
+
+type DailyInspectionFeatureEngineeringJudgement {
+  createdDate: DateTime
+  createdUser: String
+  dailyInspectionInspections: [DailyInspectionInspection!]
+  deleted: String
+  displayName: String
+  globalId: String!
+  """There are no records in the database to let me declare the shape of this JSON"""
+  json: String
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  name: String
+  project: Project
+  projectId: String
+  requiredLevel: Float
+  text: String
+}
+
+type DailyInspectionFormAnswer {
+  createdDate: DateTime
+  createdUser: String
+  dailyInspectionControlPoint: DailyInspectionControlPoint
+  dailyInspectionPunchList: DailyInspectionPunchList
+  deleted: String
+  featureGuid: String
+  globalId: String!
+  json: DailyInspectionFormAnswerJSON
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  orderNum: Float
+  question: String
+  value: String
+  valueType: Float
+}
+
+type DailyInspectionFormAnswerJSON {
+  FeatureGUID: String
+  Order: Float
+  Value: String
+  ValueType: Float
+}
+
+type DailyInspectionInspection {
+  approve: DateTime
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  areaSqFt: Float
+  areaSqYrd: Float
+  associatedMOT: String
+  cdr: String
+  contractor: Contractor
+  contractorGuid: String
+  controlPointNumber: String
+  controlPointPerformed: String
+  copiedInspectionId: String
+  createdDate: DateTime
+  createdUser: String
+  dailyInspectionDailyContractorEquipments: [DailyInspectionDailyContractorEquipment!]
+  dailyInspectionDailyContractorPersonnel: [DailyInspectionDailyContractorPersonnel!]
+  dateCreated: DateTime
+  deleted: String
+  description: String
+  endAlignment: String
+  endOffset: String
+  endStation: String
+  engineeringJudgeExcersized: String
+  engineeringJudgement: DailyInspectionFeatureEngineeringJudgement
+  engineeringJudgementDetails: String
+  engineeringJudgementGuid: String
+  """unused. all records appear to be null"""
+  featureGuid: String
+  foreman: DailyInspectionLookUp
+  foremanGuid: String
+  genericPlacements: [GenericPlacement!]
+  globalId: String!
+  hasUnresolvedIssues: String
+  inspectionId: String
+  inspectionNotes: String
+  inspectionStart: DateTime
+  inspectionStop: DateTime
+  inspectionTimeOnSite: Float
+  json: DailyInspectionInspectionJSON
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  linearFt: Float
+  lowTemp: Float
+  manualMeasurements: String
+  mediaUploads: [MediaUpload!]
+  multiplePayItemString: String
+  multiplePayItems: [PayItemNoGeometry!]
+  ncr: String
+  ncrIssueDescription: String
+  payItem: PayItemNoGeometry
+  payItemGroup: PayItemGroup
+  payItemGroupGuid: String
+  payItemGuid: String
+  preExistingIssueNumber: String
+  precipitationAmount: String
+  precipitationType: String
+  productionStart: DateTime
+  productionStop: DateTime
+  productionWorkingDuration: Float
+  project: Project
+  """unused. all records appear to be null. use projectId, or project to reference the associated project"""
+  projectGuid: String
+  projectId: String
+  punchListCheck: String
+  reject: DateTime
+  renderInfo: String
+  reopen: DateTime
+  reportDate: DateTime
+  responseComment: String
+  reviewComment: String
+  reviewDate: DateTime
+  reviewStatus: String
+  reviewedBy: DailyInspectionLookUp
+  reviewedByGuid: String
+  roadway: DailyInspectionLookUp
+  roadwayGuid: String
+  segment: DailyInspectionLookUp
+  segmentGuid: String
+  skies: String
+  startAlignment: String
+  startOffset: String
+  startStation: String
+  structure: DailyInspectionLookUp
+  structureGuid: String
+  submit: DateTime
+  technician: Technician
+  technicianGuid: String
+  tempHigh: Float
+  testingAndSamplingNotes: String
+  unresolvedIssueNew: String
+  unresolvedIssuePreExisting: String
+  verbalInstructionsGiven: String
+  verbalInstructionsReceived: String
+  weatherImpactNotes: String
+  weatherImpacted: String
+  windSpeed: String
+  workType: DailyInspectionWorkType
+  workTypeGuid: String
+}
+
+type DailyInspectionInspectionJSON {
+  AreaSqFt: Float
+  AreaSqYrd: Float
+  CDR: Boolean
+  ContractorGuid: String
+  ControlPointNumber: String
+  ControlPointPerformed: Boolean
+  CopiedInspectionId: String
+  DateCreated: DateTime
+  Description: String
+  EndAlignment: String
+  EndOffset: String
+  EndStation: String
+  EngineeringJudgementDetails: String
+  EngineeringJudgementExcersized: Boolean
+  EngineeringJudgementGuid: String
+  ForemanGuid: String
+  HasUnresolvedIssues: Boolean
+  InspectionId: String
+  InspectionNotes: String
+  InspectionStart: DateTime
+  InspectionStop: DateTime
+  InspectionTimeOnSite: Float
+  LinearFt: Float
+  LowTemp: Float
+  ManualMeasurements: Boolean
+  MultiplePayItems: String
+  NCR: Boolean
+  NcrIssueDescription: String
+  PayItemGuid: String
+  PreExistingIssueNumber: String
+  PrecipatationType: String
+  PrecipitationAmount: String
+  ProductionStart: DateTime
+  ProductionStop: DateTime
+  ProductionWorkingDuration: Float
+  ProjectGuid: String
+  ReportDate: DateTime
+  ReportDateString: String
+  ReportTimeString: String
+  ReviewComment: String
+  ReviewDate: DateTime
+  ReviewStatus: String
+  ReviewTech: String
+  ReviewedByGuid: String
+  RoadwayGuid: String
+  SegmentGuid: String
+  Skies: String
+  StartAlignment: String
+  StartOffset: String
+  StartStation: String
+  StructureGuid: String
+  TechnicianGuid: String
+  TempHigh: Float
+  TestingAndSamplingNotes: String
+  UnresolvedIssueNew: Boolean
+  UnresolvedIssuePreexisting: Boolean
+  VerbalInstructionsGiven: String
+  VerbalInstructionsReceived: String
+  Verbose: Boolean
+  WeatherImpactNotes: String
+  WeatherImpacted: Boolean
+  WindSpeed: String
+  WorkTypeGuid: String
+}
+
+type DailyInspectionLookUp {
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  displayName: String
+  foremanDailyInspectionInspections: [DailyInspectionInspection!]
+  globalId: String!
+  """There's no apparent schema for this JSON"""
+  json: String
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  name: String
+  ohcRepDailyInspectionControlPoints: [DailyInspectionControlPoint!]
+  originatorRepDailyInspectionPunchLists: [DailyInspectionPunchList!]
+  plClosureDailyInspectionPunchLists: [DailyInspectionPunchList!]
+  project: Project
+  projectId: String
+  qaClosurePersonDailyInspectionPunchLists: [DailyInspectionPunchList!]
+  qaRepDailyInspectionControlPoints: [DailyInspectionControlPoint!]
+  qaRepDailyInspectionPunchLists: [DailyInspectionPunchList!]
+  qaSignerDailyInspectionControlPoints: [DailyInspectionControlPoint!]
+  qcRepDailyInspectionPunchLists: [DailyInspectionPunchList!]
+  qcRequestForClosureDailyInspectionPunchLists: [DailyInspectionPunchList!]
+  reviewedByDailyInspectionInspections: [DailyInspectionInspection!]
+  roadwayDailyInspectionInspections: [DailyInspectionInspection!]
+  segmentDailyInspectionInspections: [DailyInspectionInspection!]
+  structureDailyInspectionInspections: [DailyInspectionInspection!]
+  type: String
+  udotRepDailyInspectionPunchLists: [DailyInspectionPunchList!]
+}
+
+type DailyInspectionPunchList {
+  approve: DateTime
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  createdDate: DateTime
+  createdUser: String
+  dailyInspectionFormAnswers: [DailyInspectionFormAnswer!]
+  dateClosed: DateTime
+  dateCreated: DateTime
+  deleted: String
+  description: String
+  endAlignment: String
+  endOffset: String
+  endStation: String
+  formData: String
+  formSnapshot: String
+  genericPlacements: [GenericPlacement!]
+  globalId: String!
+  json: DailyInspectionPunchListJSON
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  mediaUploads: [MediaUpload!]
+  multiplePayItemString: String
+  multiplePayItems: [PayItemNoGeometry!]
+  originatorRep: DailyInspectionLookUp
+  originatorRepGuid: String
+  payItem: PayItemNoGeometry
+  payItemGroup: PayItemGroup
+  payItemGroupGuid: String
+  payItemGuid: String
+  photoUrls: String
+  plClosure: DailyInspectionLookUp
+  plClosureGuid: String
+  productionStart: DateTime
+  project: Project
+  """unused. All database records are null for this field. use projectId"""
+  projectGuid: String
+  projectId: String
+  punchListId: String
+  qaClosurePerson: DailyInspectionLookUp
+  qaClosurePersonGuid: String
+  qaClosureRecSignatureDate: DateTime
+  qaClosureRecSignatureUri: String
+  qaClosureSignatureDate: DateTime
+  qaClosureSignatureUri: String
+  qaRep: DailyInspectionLookUp
+  qaRepGuid: String
+  qcRep: DailyInspectionLookUp
+  qcRepGuid: String
+  qcRequestForClosure: DailyInspectionLookUp
+  qcRequestForClosureGuid: String
+  reject: DateTime
+  renderInfo: String
+  reopen: DateTime
+  reportDate: DateTime
+  responseComment: String
+  reviewComment: String
+  reviewDate: DateTime
+  reviewStatus: String
+  reviewedBy: Technician
+  reviewedByGuid: String
+  startAlignment: String
+  startOffset: String
+  startStation: String
+  status: String
+  statusUpdate: String
+  submit: DateTime
+  technician: Technician
+  technicianGuid: String
+  udotClosureSignatureDate: DateTime
+  udotClosureSignatureUri: String
+  udotRep: DailyInspectionLookUp
+  udotRepGuid: String
+  workType: DailyInspectionWorkType
+  workTypeGuid: String
+}
+
+type DailyInspectionPunchListJSON {
+  DateCreated: DateTime
+  EndAlignment: String
+  EndOffset: String
+  EndStation: String
+  FormData: String
+  FormSnapshot: String
+  OriginatorRepGuid: String
+  PLClosureGuid: String
+  PayItemsGUID: String
+  ProjectGuid: String
+  PunchListId: String
+  QAClosurePresonGuid: String
+  QAClosureRecomendationSignatureUri: String
+  QARepGuid: String
+  QCRepGuid: String
+  QCRequestForClosureGuid: String
+  RenderInfo: String
+  ReportDate: DateTime
+  ReviewDate: DateTime
+  ReviewStatus: String
+  ReviewedByGuid: String
+  StartAlignment: String
+  StartOffset: String
+  StartStation: String
+  TechnicianGuid: String
+  UDOTClosureSignatureUri: String
+  UDOTRepGuid: String
+  Verbose: Boolean
+  WorkTypeGuid: String
+}
+
+type DailyInspectionWorkType {
+  createDate: DateTime
+  createdUser: String
+  dailyInspectionControlPoints: [DailyInspectionControlPoint!]
+  dailyInspectionInspections: [DailyInspectionInspection!]
+  dailyInspectionPunchLists: [DailyInspectionPunchList!]
+  deleted: String
+  globalId: String!
+  inspectionSuggestions: String
+  json: DailyInspectionWorkTypeJSON
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  name: String
+  project: Project
+  projectId: String
+  reportType: Float
+  testingSuggestions: String
+  """doesn't seem to map to anything. any non-null record is just '00000000-0000-0000-0000-000000000000'"""
+  workTypeGuid: String
+}
+
+type DailyInspectionWorkTypeJSON {
+  ReportType: Float
+}
+
+"""The javascript `Date` as string. Type represents date and time as the ISO Date string."""
+scalar DateTime
+
+type DeleteCustomPayItemConnectionResponse {
+  deleted: Boolean!
+}
+
+type DeleteGlobalObjectResponse {
+  code: Float!
+  id: String!
+  message: String!
+}
+
+type DeletePDFDesignLayerResponse {
+  code: String!
+  index: String!
+  message: String!
+}
+
+type DeleteResponse {
+  code: Float!
+  id: Float!
+  message: String!
+}
+
+type DeleteSharepointFileResponse {
+  code: Float
+  message: String
+  sharepointFileId: String
+}
+
+type DensityTest {
+  alignment: String
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  averageDryDensity: Float
+  averageFieldMoisture: Float
+  averagePercent: Float
+  closed: DateTime
+  createdDate: DateTime
+  createdUser: String
+  cwWorkOrderId: String
+  dailyDensityCounts: Float
+  dailyMoistureCounts: Float
+  dateTestCreated: DateTime
+  deleted: String
+  genericPlacement: GenericPlacement
+  genericPlacementGuid: String
+  globalId: String!
+  guageNumber: String
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  liftNumber: Float
+  liftThicknessIn: Float
+  localOptimumMoisture: Float
+  localProctorValue: Float
+  localT99OrT180: String
+  lot: Lot
+  lotGuid: String
+  materialSource: MaterialSource
+  materialSourceGuid: String
+  materialSourceOverride: String
+  offset: String
+  overrideComments: String
+  overrideDate: DateTime
+  overrideStatus: String
+  overrideUser: String
+  proctor: Proctor
+  proctorGuid: String
+  proctorManualOverride: String
+  project: Project
+  projectId: String
+  random: String
+  reading1s: [Reading1!]
+  remarks: String
+  renderInfo: String
+  reopen: DateTime
+  station: String
+  status: String
+  technician: Technician
+  technicianGuid: String
+  testId: String
+  truckNumber: Float
+}
+
+type DesignSubmittal {
+  actions: [Action!]
+  comments: [Comment!]
+  contractDueDate: DateTime
+  createdDate: DateTime!
+  deletedDate: DateTime
+  disciplines: [RoutingGroup!]
+  """Possible values: Returned with no Comments, Returned with Comments, Returned with Comments - No Resubmittal Required, and Rejected"""
+  disposition: String
+  dispositionBy: User
+  dispositionById: String
+  dispositionDate: DateTime
+  """A Record<string, string> of external links. The key should be the label and the value should be the href of the external link."""
+  externalLinks: ExternalLinksScalar
+  id: String!
+  moduleToActions: [ModuleToAction!]
+  moduleToPayItems: [ModuleToPayItem!]
+  moduleToRoutingGroups: [ModuleToRoutingGroup!]
+  organization: Organization!
+  organizationId: Float!
+  packageName: String!
+  packageNumber: String!
+  payItems: [PayItemNoGeometry!]
+  project: Project!
+  projectId: String!
+  requestedActionDate: DateTime!
+  sharePointFolderName: String!
+  """Possible values: Router Review, Discipline Action, and Returned to Design Builder"""
+  status: String!
+  submittedBy: User!
+  submittedById: String!
+  submittedDate: DateTime!
+  type: Type!
+  typeId: Float!
+  updatedDate: DateTime!
+}
+
+type DesignSubmittalPaginatedResponse {
+  page: Float!
+  pages: Float!
+  rows: [DesignSubmittal!]!
+}
+
+type DocumentChecklistItem {
+  concreteMaterials: [ConcreteMaterial!]
+  documentChecklistItemToConcreteMaterials: [DocumentChecklistItemToConcreteMaterial!]
+  documentChecklistValues: [DocumentChecklistValue!]
+  id: Float!
+  name: String!
+  project: Project!
+  projectId: String!
+}
+
+type DocumentChecklistItemToConcreteMaterial {
+  concreteMaterial: ConcreteMaterial!
+  concreteMaterialGuid: String!
+  documentChecklistItem: DocumentChecklistItem!
+  documentChecklistItemId: Float!
+}
+
+type DocumentChecklistValue {
+  checked: Boolean!
+  concreteTestSet: ConcreteTestSet!
+  concreteTestSetGuid: String!
+  documentChecklistItem: DocumentChecklistItem!
+  documentChecklistItemId: Float!
+}
+
+type EditCustomPayItemConnectionResponse {
+  success: Boolean!
+}
+
+type EmailList {
+  createDate: DateTime!
+  deleteDate: DateTime!
+  emailTypes: [EmailType!]!
+  id: Float!
+  name: String!
+  nonUserEmails: [NonUserEmail!]
+  project: Project!
+  projectId: String!
+  updateDate: DateTime!
+  users: [User!]!
+}
+
+input EmailListCreateArgs {
+  name: String!
+  nonUserEmailIds: [Int!]
+  typeIds: [String!]!
+  userIds: [String!]!
+}
+
+type EmailType {
+  createdDate: DateTime!
+  description: String!
+  emailLists: [EmailList!]!
+  id: String!
+  name: String!
+  updatedDate: DateTime!
+}
+
+"""A custom scalar to deal with external links (Record<string, string>)"""
+scalar ExternalLinksScalar
+
+input FileInput {
+  name: String!
+  url: String!
+}
+
+type GenericPlacement {
+  areaSqft: Float
+  areaSqyrd: Float
+  closed: DateTime
+  concreteCoreMeasurement: ConcreteCoreMeasurement
+  concretePlacement: ConcretePlacement
+  createdDate: DateTime
+  createdUser: String
+  dailyInspectionControlPoint: DailyInspectionControlPoint
+  dailyInspectionInspection: DailyInspectionInspection
+  dailyInspectionPunchList: DailyInspectionPunchList
+  deleted: String
+  densityTests: [DensityTest!]
+  endAlignment: String
+  endOffset: String
+  endStation: String
+  featureId: String
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  linealFt: Float
+  lot: Lot
+  opened: DateTime
+  parentFeatureTable: Float
+  """This field corresponds to the Lot, Control Point, Inspection, etc. You can use this field, along with the parentFeatureTable to get generic placements or directly reference the ManyToOne relationships in the Generic Placement entity by name"""
+  parentGuid: String
+  payItemGroup: PayItemGroup
+  payItemGroupGuid: String
+  project: Project
+  projectId: String
+  reopen: DateTime
+  requiredThickness: Float
+  startAlignment: String
+  startOffset: String
+  startStation: String
+  status: String
+  volumeCuYds: Float
+}
+
+input GiveDesignSubmittalDispositionInput {
+  comment: String
+  disposition: String!
+}
+
+type GoogleSheetCell {
+  """the human readable text from the cell"""
+  formattedValue: String
+  """if a hyperlink was added to the cell in any manner, it should be here"""
+  hyperlink: String
+}
+
+type GoogleSheetData {
+  """A 2-Dimensional array of `GoogleSheetCell`s"""
+  data: [[GoogleSheetCell!]!]
+}
+
+type LabTech {
+  concreteCoreBreakDatas: [ConcreteCoreBreakData!]
+  concreteTestBreakDatas: [ConcreteTestBreakData!]
+  createdDate: DateTime!
+  id: Float!
+  isAzureADUser: Boolean!
+  isUsed: Boolean!
+  name: String!
+  project: Project!
+  projectId: String!
+  testingLabs: [TestingLab!]
+  updatedDate: DateTime!
+  user: User
+  userId: String
+}
+
+type Lot {
+  archiveDate: DateTime
+  archiveUser: String
+  archived: String
+  areaSqft: Float
+  areaSqyrd: Float
+  beginAlignment: String
+  beginningLiftNumber: Float
+  closed: DateTime
+  compactionAverage: Float
+  contractor: Contractor
+  contractorNameOverride: String
+  contractorsGuid: String
+  createdDate: DateTime
+  createdUser: String
+  dailyStandardDensityCounts: Float
+  dailyStandardMoistureCounts: Float
+  dateLotCreated: DateTime
+  deleted: String
+  densityTests: [DensityTest!]
+  endAlignment: String
+  endOffset: String
+  endStation: String
+  genericPlacements: [GenericPlacement!]
+  globalId: String!
+  globalOptimumMoisture: Float
+  globalProctorValue: Float
+  globalT99OrT180: String
+  globalTestDepth: Float
+  guageNumber: String
+  guidBackup: String
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  liftThickness: Float
+  liftThicknessIn: Float
+  linealFt: Float
+  lotId: String
+  """the associated MaterialRequirement via LOT_EVW.Material_GUID"""
+  material: MaterialRequirement
+  materialGuid: String
+  """maps to the associated MaterialSource via LOT_EVW.Material_Source_GUID. use materialSourceString to get LOT_EVW.Material_Source"""
+  materialSource: MaterialSource
+  materialSourceGuid: String
+  materialSourceOverride: String
+  """maps to LOT_EVW.Material_Source. use materialSource to get the associated MaterialSource via LOT_EVW.Material_Source_GUID"""
+  materialSourceString: String
+  materialType: String
+  mediaUploads: [MediaUpload!]
+  multiplePayItemString: String
+  multiplePayItems: [PayItemNoGeometry!]
+  numberOfRequiredTests: Float
+  overrideComments: String
+  overrideDate: DateTime
+  overrideStatus: String
+  overrideUser: String
+  payItem: PayItemNoGeometry
+  payItemGroup: PayItemGroup
+  payItemGroupGuid: String
+  payItemGuid: String
+  pinNumber: String
+  proctor: Proctor
+  proctorGuid: String
+  proctorManualOverride: String
+  project: Project
+  projectId: String
+  projectName: String
+  projectNumber: String
+  renderInfo: String
+  reopen: DateTime
+  reviewedBy: String
+  reviewedDate: DateTime
+  startOffset: String
+  startStation: String
+  status: String
+  technician: String
+  technicianDate: DateTime
+  testId: String
+  udotRe: String
+  volumeCuYds: Float
+}
+
+input MapImagePreviewInput {
+  globalId: String!
+  index: Float!
+  projectLayers: [Int!]
+}
+
+type MapImageResponse {
+  b64: String!
+}
+
+type MapServerLayer {
+  id: Float!
+  name: String!
+}
+
+input MassiveBatchExportBody {
+  projectId: String!
+  reports: [String!]!
+}
+
+type MaterialRequirement {
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  globalId: String!
+  gradationArea: Float
+  gradationUnits: String
+  individualCompactionRequireme: Float
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  lotCompactionRequirement: Float
+  lots: [Lot!]
+  materialSection: String
+  payItemNoGeometries: [PayItemNoGeometry!]
+  payItems: [PayItem!]
+  proctorArea: Float
+  proctorUnits: String
+  proctors: [Proctor!]
+  project: Project
+  projectId: String
+  testingRequirementArea: Float
+  testingRequirementMinimum: Float
+  testingRequirementNumberOfT: Float
+  testingRequirementUnits: String
+  typicalLiftThicknessInches: Float
+}
+
+type MaterialSource {
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  densityTests: [DensityTest!]
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  lots: [Lot!]
+  proctors: [Proctor!]
+  project: Project
+  projectId: String
+  source: String
+}
+
+type MediaUpload {
+  asphaltLot: AsphaltLot
+  asphaltPlacement: AsphaltPlacement
+  concreteTestSet: ConcreteTestSet
+  createdDate: DateTime
+  createdUser: String
+  dailyInspectionControlPoint: DailyInspectionControlPoint
+  dailyInspectionInspection: DailyInspectionInspection
+  dailyInspectionPunchList: DailyInspectionPunchList
+  deleted: String
+  """The field used to connect the globalId of associated entities to the Media Upload. Entities include Asphalt Lot, Asphalt Placement, Concrete Test Set, Daily Inspection Control Point, Daily Inspection Inspection, Daily Inspection Punch List, and Lot"""
+  featureId: String
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  localHostName: String
+  localPath: String
+  lot: Lot
+  originalFileName: String
+  project: Project
+  projectId: String
+  remoteFileName: String
+  tableName: String
+  thumbUrl: String
+  url: String
+}
+
+"""Maps to `RPT_Module_To_Actions`"""
+type ModuleToAction {
+  action: Action!
+  actionId: Float!
+  designSubmittal: DesignSubmittal
+  """Possible values: Construction & Admin Submittals, Concrete, Daily Inspection, Pay Items, Administration, Design Submittals, and PDF Reports"""
+  module: String!
+  """Maps to the id of the associated `module`"""
+  moduleId: String!
+}
+
+"""Maps to `RPT_Module_To_PayItems`"""
+type ModuleToPayItem {
+  designSubmittal: DesignSubmittal
+  """Possible values: Construction & Admin Submittals, Concrete, Daily Inspection, Pay Items, Administration, Design Submittals, and PDF Reports"""
+  module: String!
+  """Maps to the id of the associated `module`"""
+  moduleId: String!
+  payItem: PayItemNoGeometry!
+  payItemId: String!
+}
+
+"""Maps to `RPT_Module_To_Routing_Groups`"""
+type ModuleToRoutingGroup {
+  accepted: Boolean!
+  acceptedBy: User
+  acceptedById: String
+  acceptedDate: DateTime
+  designSubmittal: DesignSubmittal
+  """Possible values: Construction & Admin Submittals, Concrete, Daily Inspection, Pay Items, Administration, Design Submittals, and PDF Reports"""
+  module: String!
+  """Maps to the id of the associated `module`"""
+  moduleId: String!
+  routingGroup: RoutingGroup!
+  routingGroupId: Float!
+}
+
+type Mutation {
+  acceptDesignSubmittalDiscipline(accepted: Boolean!, designSubmittalId: String!, routingGroupId: Float!): ModuleToRoutingGroup!
+  acceptSubmittalRoutingGroup(accepted: Boolean!, certToRoutingGroupId: Int!): CertToRoutingGroup!
+  createAPIKey(recipient: String!): String!
+  createAction(name: String!, projectId: String!): Action!
+  createCert(body: NewCertInput!, projectGuid: String!): Cert!
+  createCertRoutingGroup(name: String!, projectGuid: String!): CertRoutingGroup!
+  createCertSubtype(name: String!, projectGuid: String!): CertSubtype!
+  createCertType(name: String!, projectGuid: String!): CertType!
+  createComment(body: NewCommentInput!): CertComment!
+  createDesignSubmittal(body: NewDesignSubmittalInput!, projectId: String!): DesignSubmittal!
+  createDesignSubmittalComment(comment: String!, designSubmittalId: String!): DesignSubmittal!
+  createDocumentChecklistItem(body: CreateDocumentChecklistItemInput!): DocumentChecklistItem!
+  createEmailList(body: EmailListCreateArgs!, projectId: String!): EmailList!
+  createGenericLabTech(name: String!, projectId: String!): LabTech!
+  createGoogleSheetCustomPayItemConnection(projectGuid: String!, url: String!): CustomPayItemConnection!
+  createMassiveBatchExport(body: MassiveBatchExportBody!): PDFReportResponse!
+  createNonUserEmail(body: CreateNonUserEmailInput!): NonUserEmail!
+  createOrganization(name: String!, projectId: String!): Organization!
+  createProjectRole(body: CreateProjectRoleInput!, projectId: String!): Role!
+  createQuickLink(href: String, label: String!, projectId: String!): QuickLink!
+  createRoutingGroup(name: String!, projectId: String!, userIds: [String!]): RoutingGroup!
+  createTestingLab(labTechIds: [Int!]!, name: String!, projectId: String!): TestingLab!
+  createType(name: String!, projectId: String!): Type!
+  createUserLabTech(projectId: String!, userId: String!): LabTech!
+  deleteAPIKey(id: Float!): DeleteResponse!
+  deleteAction(actionId: Float!): DeleteResponse!
+  deleteCert(certId: Int!): DeleteResponse!
+  deleteCertRoutingGroup(id: Float!): DeleteResponse!
+  deleteCertSubtype(certSubtypeId: Float!): DeleteResponse!
+  deleteCertType(certTypeId: Float!): DeleteResponse!
+  deleteConcreteTestBreakData(concreteTestBreakDataId: Float!): DeleteResponse!
+  deleteDesignSubmittal(id: String!): DeleteGlobalObjectResponse!
+  deleteDocumentChecklistItem(id: Float!): DocumentChecklistItem!
+  deleteEmailList(emailListId: Float!): DeleteResponse!
+  deleteLabTech(id: Int!): DeleteResponse!
+  deleteNonUserEmail(id: Float!): DeleteResponse!
+  deleteOrganization(organizationId: Float!): DeleteResponse!
+  deletePDFDesignLayer(index: String!, projectId: String!): DeletePDFDesignLayerResponse!
+  deleteProjectCustomPayItemConnection(connectionId: Int!): DeleteCustomPayItemConnectionResponse!
+  deleteQuickLink(quickLinkId: Int!): DeleteResponse!
+  deleteRole(roleId: Int!): DeleteResponse!
+  deleteRoutingGroup(routingGroupId: Float!): DeleteResponse!
+  deleteSharepointFile(projectGuid: String!, sharepointFileId: String!): DeleteSharepointFileResponse!
+  deleteTestingLab(id: Int!): DeleteResponse!
+  deleteType(id: Float!): DeleteResponse!
+  editCertBuyAmericaQuantity(buyAmericaQuantity: Int = null, certId: Int!): Cert!
+  editCertPackageName(certId: Int!, packageName: String!): Cert!
+  editCertPackageNumber(certId: Int!, packageNumber: String!): Cert!
+  editProjectCustomPayItemConnection(connectionId: Int!, name: String!): EditCustomPayItemConnectionResponse!
+  giveCertDisposition(certId: Float!, comment: String!, disposition: String!): Cert!
+  giveDesignSubmittalDisposition(body: GiveDesignSubmittalDispositionInput!, designSubmittalId: String!): DesignSubmittal!
+  groupReviewCert(certId: Float!, comment: String!, status: String!): Cert!
+  markBuyAmerica(buyAmerica: Boolean!, certId: Int!): Cert!
+  markBuyAmericaVerified(certId: Int!): Cert!
+  markMovedToProjectWise(certId: Int!): Cert!
+  requestCertRevisions(certId: Float!, comment: String!): Cert!
+  resubmitCert(certId: Float!, comment: String!, filesArr: [FileInput!], packageName: String!, packageNumber: String!, quantity: Float!, requestedReviewDate: DateTime!, subtypeId: Float, typeId: Float!, units: String!): Cert!
+  revertDesignSubmittal(body: RouteDesignSubmittalInput!, designSubmittalId: String!): DesignSubmittal!
+  revertSubmittal(body: RevertSubmittalInput!, certId: Int!): Cert!
+  routeCert(certId: Float!, comment: String!, commentResolutionFormUrl: String, contractualReviewDate: DateTime!, routingGroupIds: [Int!], status: String!): Cert!
+  routeDesignSubmittal(body: RouteDesignSubmittalInput!, designSubmittalId: String!): DesignSubmittal!
+  setDocumentChecklistValue(checked: Boolean!, concreteTestSetGuid: String!, documentChecklistItemId: Float!): DocumentChecklistValue!
+  updateCertPayItems(body: UpdateCertPayItemsInput!, certId: Int!): Cert!
+  updateCertRoutingGroup(name: String, routingGroupId: Int!, users: [String!]): CertRoutingGroup!
+  updateCertType(id: Float!, name: String!): CertType!
+  updateColumnsCustomPayItemConnection(columnOrder: [String!]!, columnsToHide: [String!]!, connectionId: Int!): UpdateColumnsCustomPayItemConnectionResponse!
+  updateConcreteCoreBreakData(body: UpdateBreakDataInput!, featureGuid: String!): [ConcreteCoreBreakData!]!
+  updateConcretePlacement(globalId: String!, params: UpdateConcretePlacement!): ConcretePlacement!
+  updateConcreteTestBreakData(body: UpdateBreakDataInput!, featureGuid: String!): [ConcreteTestBreakData!]!
+  updateDesignSubmittalInline(body: UpdateDesignSubmittalInlineInput!, designSubmittalId: String!): DesignSubmittal!
+  updateDesignSubmittalNumberName(body: UpdateDesignSubmittalNumberNameInput!, designSubmittalId: String!): DesignSubmittal!
+  updateDocumentChecklistItem(body: UpdateDocumentChecklistItemInput!, id: Float!): DocumentChecklistItem!
+  updateEmailList(emailListId: Float!, name: String, nonUserEmailIds: [Int!], typeIds: [String!], userIds: [String!]): EmailList!
+  updateNonUserEmail(body: UpdateNonUserEmailInput!, id: Float!): NonUserEmail!
+  updateOrderProjectCustomPayItemConnection(connectionId: Int!, order: Int!): UpdateOrderCustomPayItemConnectionResponse!
+  updatePDFDesignLayerConfig(body: UpdatePDFDesignLayerInput!): PDFDesignLayer!
+  updateProjectCustomPayItemConnectionData(connectionId: Int!, data: String!): UpdateCustomPayItemConnectionDataResponse!
+  updateQuickLink(href: String, label: String, quickLinkId: Int!): QuickLink!
+  updateRole(name: String, permissionIds: [String!], roleId: Float!): Role!
+  updateRoutingGroup(name: String, routingGroupId: Int!, userIds: [String!]): RoutingGroup!
+  updateSubmittalInline(body: UpdateSubmittalInline!, certId: Int!): Cert!
+  updateTestingLab(id: Int!, labTechIds: [Int!]!): TestingLab!
+  updateUserPermissions(body: UpdateUserPermissionsInput!, projectGuid: String!, userId: String!): UserToProject!
+}
+
+input NewCertInput {
+  buyAmerica: Boolean!
+  buyAmericaQuantity: Float
+  externalLinks: ExternalLinksScalar
+  filesArr: [FileInput!]
+  packageName: String!
+  packageNumber: String!
+  payItemGuids: [String!]
+  quantity: Float!
+  requestedReviewDate: DateTime!
+  subtypeId: Float
+  typeId: Float!
+  units: String!
+}
+
+input NewCommentInput {
+  certId: Float!
+  comment: String!
+}
+
+input NewDesignSubmittalInput {
+  actionIds: [Int!]
+  externalLinks: ExternalLinksScalar
+  organizationId: Int!
+  packageName: String!
+  packageNumber: String!
+  requestedActionDate: DateTime!
+  routingGroupIds: [Int!]
+  typeId: Int!
+}
+
+type NonUserEmail {
+  address: String!
+  createdDate: DateTime!
+  emailLists: [EmailList!]
+  id: Float!
+  label: String
+  project: Project!
+  projectId: String!
+  updatedDate: DateTime!
+}
+
+type OperationResponse {
+  code: Float!
+  message: String!
+}
+
+input OrderByInfoInputType {
+  ascending: Boolean!
+  orderBy: String!
+}
+
+type Organization {
+  createdDate: DateTime!
+  designSubmittals: [DesignSubmittal!]
+  id: Float!
+  name: String!
+  project: Project!
+  projectId: String!
+  updatedDate: DateTime!
+  usedInModules: Boolean!
+}
+
+type PDFDesignLayer {
+  config: PDFDesignLayerConfigScalar
+  index: Float!
+  project: Project!
+  projectId: String!
+}
+
+"""A custom scalar to deal with PDF Design Layer Configs"""
+scalar PDFDesignLayerConfigScalar
+
+type PDFReportResponse {
+  message: String!
+}
+
+type PacketFile {
+  name: String!
+  sharePointItemId: String!
+  url: String!
+}
+
+type PayItem {
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  description: String
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  layer: String
+  """maps to the associated MaterialRequirement via PAY_ITEMS_ENV.Material_GUID"""
+  material: MaterialRequirement
+  materialGuid: String
+  payItemId: String
+  payItemNoGeometry: PayItemNoGeometry
+  payItemNoGeometryGuid: String
+  project: Project
+  projectId: String
+  renderInfo: String
+  status: String
+}
+
+type PayItemCount {
+  connectionId: String!
+  count: Float!
+}
+
+type PayItemGroup {
+  asphaltCoreMeasurements: [AsphaltCoreMeasurement!]
+  asphaltLots: [AsphaltLot!]
+  asphaltPlacements: [AsphaltPlacement!]
+  concreteCoreMeasurements: [ConcreteCoreMeasurement!]
+  concretePlacements: [ConcretePlacement!]
+  concreteTestSets: [ConcreteTestSet!]
+  createdDate: DateTime
+  createdUser: String
+  dailyDate: DateTime
+  dailyInspectionControlPoints: [DailyInspectionControlPoint!]
+  dailyInspectionInspections: [DailyInspectionInspection!]
+  dailyInspectionPunchLists: [DailyInspectionPunchList!]
+  deleted: String
+  description: String
+  genericPlacements: [GenericPlacement!]
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  lots: [Lot!]
+  """maps to PAYITEMGROUP_EVW.Multiple_Pay_Items. following convention for this field would result in a duplicate field name with multiplePayItems"""
+  multiplePayItemString: String
+  """a list of PayItemNoGeometry entities pulled from multiplePayItemString"""
+  multiplePayItems: [PayItemNoGeometry!]
+  payItem: PayItemNoGeometry
+  payItemGuid: String
+  project: Project
+  projectId: String
+  technician: Technician
+  technicianGuid: String
+}
+
+type PayItemNoGeometry {
+  """does not include asphalt core measurements where this pay item is included in multiplePayItems"""
+  asphaltCoreMeasurements: [AsphaltCoreMeasurement!]
+  """does not include asphalt placements where this pay item is included in multiplePayItems"""
+  asphaltPlacements: [AsphaltPlacement!]
+  """does not include concrete core measurements where this pay item is included in multiplePayItems"""
+  concreteCoreMeasurements: [ConcreteCoreMeasurement!]
+  """does not include concrete placements where this pay item is included in multiplePayItems"""
+  concretePlacements: [ConcretePlacement!]
+  """does not include concrete tests where this pay item is included in multiplePayItems"""
+  concreteTests: [ConcreteTest!]
+  createdDate: DateTime
+  createdUser: String
+  """does not include daily inspection control points where this pay item is included in multiplePayItems"""
+  dailyInspectionControlPoints: [DailyInspectionControlPoint!]
+  """does not include daily inspection inspections where this pay item is included in multiplePayItems"""
+  dailyInspectionInspections: [DailyInspectionInspection!]
+  """does not include daily inspection punch lists where this pay item is included in multiplePayItems"""
+  dailyInspectionPunchLists: [DailyInspectionPunchList!]
+  deleted: String
+  description: String
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  """does not include lots where this pay item is included in multiplePayItems"""
+  lots: [Lot!]
+  """maps to the associated MaterialRequirement via PAY_ITEMS_NO_GEOMETRY_EVW.Material_GUID"""
+  material: MaterialRequirement
+  materialGuid: String
+  """does not include pay item groups where this pay item is included in multiplePayItems"""
+  payItemGroups: [PayItemGroup!]
+  payItemId: String
+  payItems: [PayItem!]
+  project: Project
+  projectId: String
+  status: String
+}
+
+type PayItemsCertsJoin {
+  cert: Cert!
+  certId: Float!
+  certToPayItemId: Float!
+  payItem: PayItemNoGeometry!
+  payItemId: String!
+}
+
+type Permission {
+  description: String!
+  id: String!
+  name: String!
+  roles: [Role!]
+  userToProjects: [UserToProject!]
+}
+
+type Proctor {
+  comments: String
+  createdDate: DateTime
+  createdUser: String
+  deleted: String
+  densityTests: [DensityTest!]
+  dryDensity: Float
+  globalId: String!
+  globalT99OrT180: String
+  gradationLink: String
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  location: String
+  lots: [Lot!]
+  """maps to the associated MaterialRequirement via PROCTOR_EVW.Material_GUID"""
+  material: MaterialRequirement
+  materialGuid: String
+  materialSource: MaterialSource
+  materialSourceGuid: String
+  optimumMoisture: Float
+  proctorId: String
+  proctorLink: String
+  project: Project
+  projectId: String
+  sampleDate: DateTime
+  value: Float
+}
+
+type Project {
+  actions: [Action!]
+  active: String
+  adminEmail: String
+  """this appears to be a relationship, but I can't seem to find an Application Names table"""
+  applicationNamesGuid: String
+  asphaltCoreMeasurements: [AsphaltCoreMeasurement!]
+  asphaltLots: [AsphaltLot!]
+  asphaltMaterialSources: [AsphaltMaterialSource!]
+  asphaltMaterials: [AsphaltMaterial!]
+  asphaltMixDesigns: [AsphaltMixDesign!]
+  asphaltPlacementJoints: [AsphaltPlacementJoint!]
+  asphaltPlacements: [AsphaltPlacement!]
+  asphaltSamples: [AsphaltSample!]
+  certRoutingGroups: [CertRoutingGroup!]
+  certSubtypes: [CertSubtype!]
+  certTypes: [CertType!]
+  certs: [Cert!]
+  cidNumber: String
+  clientProjectName: String
+  clientProjectNumber: String
+  concreteCoreMeasurements: [ConcreteCoreMeasurement!]
+  concreteCylindersAssignURL: String
+  concreteMaterials: [ConcreteMaterial!]
+  concreteMixDesigns: [ConcreteMixDesign!]
+  concretePlacements: [ConcretePlacement!]
+  concreteTestSetPlacements: [ConcreteTestSetPlacement!]
+  concreteTestSets: [ConcreteTestSet!]
+  concreteTests: [ConcreteTest!]
+  contractors: [Contractor!]
+  createdDate: DateTime
+  createdUser: String
+  customPayItemConnections: [CustomPayItemConnection!]
+  dailyInspectionControlPoints: [DailyInspectionControlPoint!]
+  dailyInspectionFeatureEngineeringJudgments: [DailyInspectionFeatureEngineeringJudgement!]
+  dailyInspectionInspections: [DailyInspectionInspection!]
+  dailyInspectionLookUps: [DailyInspectionLookUp!]
+  dailyInspectionPunchLists: [DailyInspectionPunchList!]
+  dailyInspectionWorkTypes: [DailyInspectionWorkType!]
+  deleted: String
+  densityTests: [DensityTest!]
+  designSubmittals: [DesignSubmittal!]
+  documentChecklistItems: [DocumentChecklistItem!]
+  emailLists: [EmailList!]
+  genericPlacements: [GenericPlacement!]
+  globalId: String!
+  heProjectNumber: String
+  labTechs: [LabTech!]
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  lots: [Lot!]
+  materialRequirements: [MaterialRequirement!]
+  materialSources: [MaterialSource!]
+  mediaUploads: [MediaUpload!]
+  nonUserEmails: [NonUserEmail!]
+  notes: String
+  offlineUrlMMPK: String
+  offlineUrlTPKX: String
+  orgNumber: Float
+  organizations: [Organization!]
+  payItemGroups: [PayItemGroup!]
+  payItemNoGeometries: [PayItemNoGeometry!]
+  payItems: [PayItem!]
+  pdfDesignLayers: [PDFDesignLayer!]
+  primeContractor: Contractor
+  primeContractorGuid: String
+  primeContractorName: String
+  proctors: [Proctor!]
+  projectCloseDate: DateTime
+  projectMetadata: ProjectMetadata
+  projectName: String
+  projectOpenDate: DateTime
+  projectStatus: String
+  projectToUserGroups: [ProjectToUserGroup!]
+  qaSignerPin: String
+  quickLinks: [QuickLink!]
+  reading1s: [Reading1!]
+  residentEngineer: String
+  roles: [Role!]
+  routingGroups: [RoutingGroup!]
+  spatial: String
+  specSections: [SpecSection!]
+  technicians: [Technician!]
+  testingLabs: [TestingLab!]
+  types: [Type!]
+  userToProjects: [UserToProject!]
+  workTypes: [WorkType!]
+}
+
+type ProjectCertsPaginatedResponse {
+  page: Float!
+  pages: Float!
+  rows: [Cert!]!
+}
+
+type ProjectConcreteTestSetsPaginatedResponse {
+  page: Float!
+  pages: Float!
+  rows: [ConcreteTestSet!]!
+}
+
+type ProjectMetadata {
+  concreteSixSheetName: String
+  concreteThreeSheetName: String
+  gradationsLogSpreadsheetId: String
+  materialsLogSpreadsheetId: String
+  mixDesignSheetName: String
+  project: Project!
+  projectId: String!
+  sharePointSiteId: String!
+  sharePointSiteURL: String
+}
+
+"""Maps to `RPT_Projects_User_Groups_Join`"""
+type ProjectToUserGroup {
+  project: Project!
+  projectId: String!
+  userGroup: UserGroup!
+  userGroupId: String!
+}
+
+type Query {
+  asphaltLot(globalId: String!): AsphaltLot!
+  authenticatedUser(projectGuid: String): UserResponse!
+  certRoutingGroup(routingGroupId: Float!): CertRoutingGroup!
+  concreteCore(guid: String!): ConcreteCoreMeasurement!
+  concreteCoreBreakData(featureGuid: String!): [ConcreteCoreBreakData!]!
+  concretePacketFiles(concreteTestSetGuid: String!): [ConcretePacketFile!]!
+  concreteTest(guid: String!): ConcreteTest!
+  concreteTestBreakData(featureGuid: String!): [ConcreteTestBreakData!]!
+  concreteTestSet(globalId: String!): ConcreteTestSet!
+  customConnectsPayItemCounts(payItem: String!, projectGuid: String!): [PayItemCount!]
+  densityTest(globalId: String!): DensityTest!
+  emailTypes: [EmailType!]!
+  getApiKeys: [APIKey!]!
+  getCert(certId: Int!): Cert!
+  getConcreteTestSetPacketFromSharePoint(globalId: String!): ConcreteTestSetPacket
+  getProjectAsphaltLots(projectGuid: String!): [AsphaltLot!]!
+  getProjectInspections(projectGuid: String!): [DailyInspectionInspection!]!
+  getProjectLots(projectGuid: String!): [Lot!]!
+  getProjectPunchLists(projectGuid: String!): [DailyInspectionPunchList!]!
+  lot(globalId: String!): Lot!
+  mapImagePreview(body: MapImagePreviewInput!): MapImageResponse!
+  payItem(globalId: String!): PayItem!
+  payItemNoGeometry(globalId: String!): PayItemNoGeometry!
+  permissions: [Permission!]!
+  projectActions(projectId: String!): [Action!]!
+  projectAsphaltMaterials(projectId: String!): [AsphaltMaterial!]!
+  projectAsphaltPlacements(projectId: String!): [AsphaltPlacement!]!
+  projectCertRoutingGroups(projectGuid: String!): [CertRoutingGroup!]!
+  projectCertSubtypes(projectGuid: String!): [CertSubtype!]!
+  projectCertTypes(projectGuid: String!): [CertType!]!
+  projectCerts(projectGuid: String): [Cert!]!
+  projectCertsPaginated(orderBy: OrderByInfoInputType, page: Int, payItemGlobalId: String, perPage: Int!, projectGuid: String!, search: String!, searchFields: String!): ProjectCertsPaginatedResponse!
+  projectConcreteBreakDataLabels(projectGuid: String!): [ConcreteBreakDataTestLabel!]!
+  projectConcreteCores(projectGUID: String!): [ConcreteCoreMeasurement!]!
+  projectConcreteMaterials(projectId: String!): [ConcreteMaterial!]!
+  projectConcretePlacements(projectGuid: String!): [ConcretePlacement!]!
+  projectConcreteTestSets(projectGuid: String!): [ConcreteTestSet!]!
+  projectConcreteTestSetsPaginated(orderBy: OrderByInfoInputType, page: Int, payItemGlobalId: String, perPage: Int!, projectGuid: String!, search: String!, searchFields: String!): ProjectConcreteTestSetsPaginatedResponse!
+  projectConcreteTests(projectGuid: String!): [ConcreteTest!]!
+  projectCustomPayItemConnectionColumns(connectionId: Int!): CustomPayItemConnectionColumnsResponse!
+  projectCustomPayItemConnections(projectGuid: String): [CustomPayItemConnection!]!
+  projectDailyInspectionControlPoints(projectId: String!): [DailyInspectionControlPoint!]!
+  projectDailyInspectionWorkTypes(projectId: String!): [DailyInspectionWorkType!]!
+  projectDensityTests(projectId: String!): [DensityTest!]!
+  projectDesignSubmittals(projectId: String!): [DesignSubmittal!]!
+  projectDesignSubmittalsPaginated(orderBy: OrderByInfoInputType, page: Int, payItemGlobalId: String, perPage: Int!, projectGuid: String!, search: String!, searchFields: String!): DesignSubmittalPaginatedResponse!
+  projectDocumentChecklistItems(projectId: String!): [DocumentChecklistItem!]!
+  projectEmailLists(projectId: String!): [EmailList!]!
+  projectFeatureLayers(parentId: Float!): [MapServerLayer!]!
+  projectLabTechs(projectId: String!): [LabTech!]!
+  projectMaterialRequirements(projectId: String!): [MaterialRequirement!]!
+  projectNonUserEmails(projectId: String!): [NonUserEmail!]!
+  projectOrganizations(projectId: String!): [Organization!]!
+  projectPDFDesignLayers(projectId: String!): [PDFDesignLayer!]!
+  projectPayItemNoGeometries(projectId: String!): [PayItemNoGeometry!]!
+  projectPayItems(projectId: String!): [PayItem!]!
+  projectQuickLinks(projectId: String!): [QuickLink!]!
+  projectRoles(projectId: String!): [Role!]!
+  projectRoutingGroups(projectId: String!): [RoutingGroup!]!
+  projectTestingLabs(projectId: String!): [TestingLab!]!
+  projectTypes(projectId: String!): [Type!]!
+  projectUsers(projectGuid: String!): [User!]!
+  sharepointConcretePacketFiles(projectGuid: String!, testSetId: String!): [PacketFile!]!
+  user(userId: String!): User!
+}
+
+type QuickLink {
+  createdDate: DateTime!
+  href: String
+  id: Float!
+  label: String!
+  project: Project!
+  projectId: String!
+  updatedDate: DateTime!
+}
+
+type Reading1 {
+  createdDate: DateTime
+  createdUser: String
+  dateReadingCreated: DateTime
+  deleted: String
+  densityCount: Float
+  densityTest: DensityTest
+  densityTestId: String
+  dryDensity: Float
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  moistureCount: Float
+  moistureLbs: Float
+  percentCompaction: Float
+  percentMoisture: Float
+  project: Project
+  projectId: String
+  renderInfo: String
+  status: String
+  testDepthIn: Float
+  wetDensity: Float
+}
+
+input RevertSubmittalInput {
+  comment: String!
+  commentResolutionFormUrl: String
+  contractualReviewDate: DateTime
+  quantity: Float!
+  requestedReviewDate: DateTime!
+  routingGroupIds: [Int!]
+  status: String!
+  subtypeId: Int
+  typeId: Int!
+  units: String!
+}
+
+type Role {
+  createdDate: DateTime!
+  id: Float!
+  name: String!
+  permissions: [Permission!]
+  project: Project!
+  projectId: String!
+  updatedDate: DateTime!
+  userToProjects: [UserToProject!]
+}
+
+input RouteDesignSubmittalInput {
+  actionIds: [Int!]!
+  comment: String
+  contractDueDate: DateTime!
+  routingGroupIds: [Int!]!
+}
+
+type RoutingGroup {
+  createdDate: DateTime!
+  id: Float!
+  moduleToRoutingGroups: [ModuleToRoutingGroup!]
+  name: String!
+  project: Project!
+  projectId: String!
+  updatedDate: DateTime!
+  usedInModules: Boolean!
+  users: [User!]
+}
+
+type SpecSection {
+  createdDate: DateTime!
+  id: Float!
+  name: String!
+  project: Project!
+  projectId: String!
+  updatedDate: DateTime!
+  workTypes: [WorkType!]
+}
+
+type Technician {
+  active: String
+  admin: String
+  appManager: String
+  archiver: String
+  asphaltCoreMeasurements: [AsphaltCoreMeasurement!]
+  asphaltPlacements: [AsphaltPlacement!]
+  asphaltSamples: [AsphaltSample!]
+  closedByConcreteCoreMeasurements: [ConcreteCoreMeasurement!]
+  concreteCoreMeasurements: [ConcreteCoreMeasurement!]
+  concreteTempTestedByConcreteTests: [ConcreteTest!]
+  concreteTestSets: [ConcreteTestSet!]
+  createdDate: DateTime
+  createdUser: String
+  cylindersCaseByTechConcreteTests: [ConcreteTest!]
+  dailyInspectionControlPoints: [DailyInspectionControlPoint!]
+  dailyInspectionInspections: [DailyInspectionInspection!]
+  dailyInspectionPunchLists: [DailyInspectionPunchList!]
+  date: DateTime
+  deleted: String
+  densityTests: [DensityTest!]
+  engineeringJudgementLevel: Float
+  globalId: String!
+  lastEditedDate: DateTime
+  lastEditedUser: String
+  payItemGroups: [PayItemGroup!]
+  percentAirTestedByConcreteTests: [ConcreteTest!]
+  project: Project
+  projectId: String
+  qaSigner: String
+  readOnly: String
+  reviewedByDailyInspectionControlPoints: [DailyInspectionControlPoint!]
+  reviewedByDailyInspectionPunchLists: [DailyInspectionPunchList!]
+  reviewer: String
+  slumpTestedByConcreteTests: [ConcreteTest!]
+  """maps to the associated Technician. use technicianString to get TECHNICIAN_EVW.Technician"""
+  technician: Technician
+  technicianId: String
+  technicianInitials: String
+  technicianName: String
+  """maps to TECHNICIAN_EVW.Technician"""
+  technicianString: String
+  technicianUsername: String
+  technicians: [Technician!]
+  unitWeightTechConcreteTests: [ConcreteTest!]
+}
+
+type TestingLab {
+  concreteCoreBreakDatas: [ConcreteCoreBreakData!]
+  concreteTestBreakDatas: [ConcreteTestBreakData!]
+  createdDate: DateTime!
+  id: Float!
+  isUsed: Boolean!
+  labTechs: [LabTech!]
+  name: String!
+  project: Project!
+  projectId: String!
+  updatedDate: DateTime!
+}
+
+type Type {
+  createdDate: DateTime!
+  designSubmittals: [DesignSubmittal!]
+  id: Float!
+  name: String!
+  project: Project!
+  projectId: String!
+  updatedDate: DateTime!
+  usedInDesignSubmittals: Boolean!
+}
+
+input UpdateBreakDataInput {
+  breakData: [BreakDataInput!]!
+}
+
+input UpdateCertPayItemsInput {
+  payItemGuids: [String!]!
+}
+
+type UpdateColumnsCustomPayItemConnectionResponse {
+  success: Boolean!
+}
+
+input UpdateConcretePlacement {
+  notes: String
+  sqFt: Float
+  steelVerify: String
+}
+
+type UpdateCustomPayItemConnectionDataResponse {
+  success: Boolean!
+}
+
+input UpdateDesignSubmittalInlineInput {
+  actionIds: [Int!]
+  externalLinks: ExternalLinksScalar
+  organizationId: Int
+  payItemIds: [String!]
+  requestedActionDate: DateTime
+  routingGroupIds: [Int!]
+  typeId: Int
+}
+
+input UpdateDesignSubmittalNumberNameInput {
+  packageName: String
+  packageNumber: String
+}
+
+input UpdateDocumentChecklistItemInput {
+  concreteMaterialGuids: [String!]
+  name: String
+}
+
+input UpdateNonUserEmailInput {
+  address: String
+  label: String
+}
+
+type UpdateOrderCustomPayItemConnectionResponse {
+  success: Boolean!
+}
+
+input UpdatePDFDesignLayerInput {
+  config: PDFDesignLayerConfigScalar!
+  index: Float!
+  projectId: String!
+}
+
+input UpdateSubmittalInline {
+  contractualReviewDate: DateTime
+  externalLinks: ExternalLinksScalar
+  quantity: Float
+  requestedReviewDate: DateTime
+  routingGroupIds: [Int!]
+  subtypeId: Int
+  typeId: Int
+  units: String
+}
+
+input UpdateUserPermissionsInput {
+  additionalPermissionIds: [String!]
+  roleIds: [Int!]
+}
+
+type User {
+  auditLogs: [AuditLog!]
+  certRoutingGroups: [CertRoutingGroup!]
+  deleteDate: DateTime
+  displayName: String
+  emailLists: [EmailList!]
+  givenName: String
+  id: String!
+  mail: String!
+  routingGroups: [RoutingGroup!]
+  surname: String
+  userGroups: [UserGroup!]
+  userToProjects: [UserToProject!]
+}
+
+"""Maps to an Azure [Active Directory](https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/AllGroups) User Group. The `id` and `name` properties should match the User Group's `id` and `name` in Azure. User Groups are associated with projects during project creation, and manually associated with projects after. They should include all associated users in Active Directory. The `syncUsers` cron/startup job is responsible for syncing User Groups and their associated Users"""
+type UserGroup {
+  """This id should match the id of the User Group in Active Directory"""
+  id: String!
+  """This name should match the name of the User Group in Active Directory"""
+  name: String!
+  """A list of ProjectsUserGroupsJoin entities for this group. At project creation, user groups are associated with the project using the ProjectsUserGroupsJoin entity"""
+  projectToUserGroups: [ProjectToUserGroup!]
+  """Active Directory Users associated with this User Group"""
+  users: [User!]
+}
+
+type UserResponse {
+  auditLogs: [AuditLog!]
+  certRoutingGroups: [CertRoutingGroup!]
+  deleteDate: DateTime
+  displayName: String
+  emailLists: [EmailList!]
+  givenName: String
+  id: String!
+  mail: String!
+  projectPermissions: [String!]!
+  routingGroups: [RoutingGroup!]
+  surname: String
+  userGroups: [UserGroup!]
+  userToProjects: [UserToProject!]
+}
+
+"""
+Maps to `RPT_Users_To_Projects`
+  
+Used to manage a user's attributes for a specific project.
+
+Validate the existence of these records by `userId` and `projectId` before 
+inserting new records to prevent duplicate records
+
+### User Permissions
+
+Per project, users can have zero or more roles, which contain their own permissions,
+and additional, on-off permissions. Their "total" permissions are a set of all
+their roles' permissions and any additional permissions
+"""
+type UserToProject {
+  """Join `RPT_Users_To_Projects_To_Additional_Permissions` to access additional permissions in SQL"""
+  additionalPermissions: [Permission!]
+  id: Float!
+  project: Project!
+  projectId: String!
+  """Join `RPT_Users_To_Projects_To_Roles` to access roles in SQL"""
+  roles: [Role!]
+  user: User!
+  userId: String!
+}
+
+type WorkType {
+  certs: [Cert!]
+  createdDate: DateTime!
+  id: Float!
+  name: String!
+  project: Project!
+  projectId: String!
+  specSections: [SpecSection!]
+  updatedDate: DateTime!
+}
